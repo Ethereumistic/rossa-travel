@@ -1,27 +1,77 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { HoveredLink, Menu, MenuItem, ProductItem } from "./navbar-menu";
 import { cn } from "@/lib/utils";
 import { Logo } from "../information/info";
 import { Button } from "../ui/buttons";
+import { AnimatePresence, motion, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 
-export function Navbar1() {
-  return (
-    <div className="relative w-full flex items-center justify-center">
-      <Navbar className="top-0" />
-    </div>
-  );
-}
+export function Navbar3() {
+    const { scrollYProgress } = useScroll();
+
+    const [visible, setVisible] = useState(true);
+  
+    useMotionValueEvent(scrollYProgress, "change", (current) => {
+      // Check if current is not undefined and is a number
+      if (typeof current === "number") {
+        let direction = current! - scrollYProgress.getPrevious()!;
+  
+        if (scrollYProgress.get() < 0.05) {
+          setVisible(true);
+        } else {
+          if (direction < 0) {
+            setVisible(true);
+          } else {
+            setVisible(false);
+          }
+        }
+      }
+    });
+  
+    return (
+        <AnimatePresence mode="wait">
+        <motion.div
+          initial={{
+            opacity: 1,
+            y: -100,
+          }}
+          animate={{
+            y: visible ? 0 : -100,
+            opacity: visible ? 1 : 0,
+          }}
+          transition={{
+            duration: 0.2,
+          }}
+          className={cn(
+            " fixed  inset-x-0 w-full flex items-center justify-center z-[5000] border-none",
+        )}
+        >
+        <Navbar className="top-0" />
+      </motion.div>
+      </AnimatePresence>
+    );
+  }
 
 function Navbar({ className }: { className?: string }) {
     const [active, setActive] = useState<string | null>(null);
+    const [isScrolled, setIsScrolled] = useState(false); // Add this state
+
+    useEffect(() => {
+      const handleScroll = () => {
+        setIsScrolled(window.scrollY > 200); // Update state based on scroll position
+      };
+  
+      window.addEventListener("scroll", handleScroll); // Add scroll event listener
+      return () => window.removeEventListener("scroll", handleScroll); // Cleanup
+    }, []);
     return (
       <div
-        className={cn("fixed top-10 inset-x-0 w-full mx-auto z-50 ", className)}>
-        <Menu setActive={setActive}>
-         <Logo title="Logo" href="/" src="https://cdn.jsdelivr.net/gh/Ethereumistic/chistota-smurt-assets/partners/echoray-dark.png" />
+      className={cn(`fixed top-10 inset-x-0 w-full mx-auto z-50 transition-colors duration-300 ${isScrolled ? 'bg-white' : ''}`, className)}>
+      <Menu setActive={setActive}>
+         <Logo className={`transition-all duration-300 ${isScrolled ? '' : 'invert'}`} 
+               title="Logo" href="/" src="https://cdn.jsdelivr.net/gh/Ethereumistic/chistota-smurt-assets/partners/echoray-dark.png" />
           <div className="flex items-center space-x-16">
-              <MenuItem setActive={setActive} active={active} item="Services">
+              <MenuItem setActive={setActive} active={active} item="Services" isScrolled={isScrolled}>
                 <div className="flex flex-col space-y-4 text-sm">
                   <HoveredLink href="/web-dev">Web Development</HoveredLink>
                   <HoveredLink href="/interface-design">Interface Design</HoveredLink>
@@ -29,7 +79,7 @@ function Navbar({ className }: { className?: string }) {
                   <HoveredLink href="/branding">Branding</HoveredLink>
                 </div>
               </MenuItem>
-              <MenuItem setActive={setActive} active={active} item="Products">
+              <MenuItem setActive={setActive} active={active} item="Products" isScrolled={isScrolled}>
                 <div className="text-sm grid grid-cols-2 gap-10 p-4">
                   <ProductItem
                     title="Algochurn"
@@ -57,7 +107,7 @@ function Navbar({ className }: { className?: string }) {
                   />
                 </div>
               </MenuItem>
-              <MenuItem setActive={setActive} active={active} item="Pricing">
+              <MenuItem setActive={setActive} active={active} item="Pricing" isScrolled={isScrolled}>
                 <div className="flex flex-col space-y-4 text-sm">
                   <HoveredLink href="/hobby">Hobby</HoveredLink>
                   <HoveredLink href="/individual">Individual</HoveredLink>

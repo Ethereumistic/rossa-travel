@@ -48,23 +48,20 @@ const config: Config = {
       },
       
       colors: {
-
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-        lblue: " #58779F",
-        llblue: " #8CB2E4",
-        dblue: " #1A2A40",
-        ddblue: "#132031",
-        sgreen:"#7A8B7F",
-        cream:"#F5F1E8",
-        
-        rred:"#A34A28",
-        theme_grayishBlue: 'hsl(237, 18%, 59%)',
-        theme_softRed: '#fff',
-        theme_white: 'hsl(0, 0%, 100%)',
-        theme_darkDesaturatedBlue: 'hsl(236, 21%, 26%)',
-        theme_veryDarkBlue: 'hsl(235, 16%, 14%)',
-        theme_veryDarkMostlyBlackBlue: 'hsl(234, 17%, 12%)',
+        primary: {
+          DEFAULT: '#1D4ED8', // Blue-600
+          foreground: '#FFFFFF', // White
+        },
+        secondary: {
+          DEFAULT: '#FBBF24', // Amber-400
+          foreground: '#1F2937', // Gray-800
+        },
+        destructive: {
+          DEFAULT: '#EF4444', // Red-500
+          foreground: '#FFFFFF', // White
+        },
+        accent: '#4F46E5', // Indigo-600
+        input: '#E5E7EB', // Gray-300
       },
 
       fontFamily: {

@@ -18,17 +18,19 @@ export const MenuItem = ({
   active,
   item,
   children,
+  isScrolled,
 }: {
   setActive: (item: string) => void;
   active: string | null;
   item: string;
   children?: React.ReactNode;
+  isScrolled?: boolean;
 }) => {
   return (
     <div onMouseEnter={() => setActive(item)} className="relative ">
       <motion.p
         transition={{ duration: 0.3 }}
-        className="cursor-pointer text-black hover:opacity-[0.9] dark:text-white"
+        className={`cursor-pointer font-semibold ${isScrolled ? 'text-black' : 'text-white'} hover:opacity-[0.9] dark:text-white`}
       >
         {item}
       </motion.p>
@@ -68,9 +70,13 @@ export const Menu = ({
   children: React.ReactNode;
 }) => {
   return (
+    // <nav
+    //   onMouseLeave={() => setActive(null)}
+    //   className="relative border border-transparent dark:bg-black dark:border-white/[0.2] bg-white shadow-input px-8 py-6"
+    // >
     <nav
       onMouseLeave={() => setActive(null)}
-      className="relative border border-transparent dark:bg-black dark:border-white/[0.2] bg-white shadow-input px-8 py-6"
+      className="relative px-8 py-4  border-none"
     >
         {/* if they are spaced evenly they are middled, if between they are left and right */}
       <div className="max-w-full mx-auto flex justify-evenly items-center"> 

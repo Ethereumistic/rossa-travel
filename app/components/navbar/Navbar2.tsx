@@ -1,13 +1,13 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { HoveredLink, Menu, MenuItem, ProductItem } from "./navbar-menu";
 import { cn } from "@/lib/utils";
 import { Logo } from "../information/info";
 import { Button } from "../ui/buttons";
 
-export function Navbar1() {
+export function Navbar2() {
   return (
-    <div className="relative w-full flex items-center justify-center">
+    <div className="relative w-full flex items-center justify-center ">
       <Navbar className="top-0" />
     </div>
   );
@@ -15,13 +15,23 @@ export function Navbar1() {
 
 function Navbar({ className }: { className?: string }) {
     const [active, setActive] = useState<string | null>(null);
+    const [isScrolled, setIsScrolled] = useState(false); // Add this state
+
+    useEffect(() => {
+      const handleScroll = () => {
+        setIsScrolled(window.scrollY > 150); // Update state based on scroll position
+      };
+  
+      window.addEventListener("scroll", handleScroll); // Add scroll event listener
+      return () => window.removeEventListener("scroll", handleScroll); // Cleanup
+    }, []);
     return (
       <div
-        className={cn("fixed top-10 inset-x-0 w-full mx-auto z-50 ", className)}>
-        <Menu setActive={setActive}>
-         <Logo title="Logo" href="/" src="https://cdn.jsdelivr.net/gh/Ethereumistic/chistota-smurt-assets/partners/echoray-dark.png" />
+      className={cn(`fixed top-10 inset-x-0 w-full mx-auto z-50 transition-colors duration-300 ${isScrolled ? 'bg-white' : ''}`, className)}>        <Menu setActive={setActive}>
+         <Logo className={`transition-all duration-300 ${isScrolled ? '' : 'invert'}`} 
+               title="Logo" href="/" src="https://cdn.jsdelivr.net/gh/Ethereumistic/chistota-smurt-assets/partners/echoray-dark.png" />
           <div className="flex items-center space-x-16">
-              <MenuItem setActive={setActive} active={active} item="Services">
+              <MenuItem setActive={setActive} active={active} item="Services" isScrolled={isScrolled}>
                 <div className="flex flex-col space-y-4 text-sm">
                   <HoveredLink href="/web-dev">Web Development</HoveredLink>
                   <HoveredLink href="/interface-design">Interface Design</HoveredLink>
@@ -29,7 +39,7 @@ function Navbar({ className }: { className?: string }) {
                   <HoveredLink href="/branding">Branding</HoveredLink>
                 </div>
               </MenuItem>
-              <MenuItem setActive={setActive} active={active} item="Products">
+              <MenuItem setActive={setActive} active={active} item="Products" isScrolled={isScrolled}>
                 <div className="text-sm grid grid-cols-2 gap-10 p-4">
                   <ProductItem
                     title="Algochurn"
@@ -57,7 +67,7 @@ function Navbar({ className }: { className?: string }) {
                   />
                 </div>
               </MenuItem>
-              <MenuItem setActive={setActive} active={active} item="Pricing">
+              <MenuItem setActive={setActive} active={active} item="Pricing" isScrolled={isScrolled}>
                 <div className="flex flex-col space-y-4 text-sm">
                   <HoveredLink href="/hobby">Hobby</HoveredLink>
                   <HoveredLink href="/individual">Individual</HoveredLink>
