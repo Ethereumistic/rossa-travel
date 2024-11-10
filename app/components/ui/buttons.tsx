@@ -66,6 +66,8 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPr
           </Link>
         )
       }
+
+
   
       return (
         <button type={type as "button" | "submit" | "reset"} {...(commonProps as React.ButtonHTMLAttributes<HTMLButtonElement>)}>
@@ -79,6 +81,8 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPr
       )
     }
   )
+
+  Button.displayName = 'Button'
 
   export function Switch({ checked, onChange, disabled = false, className }: SwitchProps) {
     return (
