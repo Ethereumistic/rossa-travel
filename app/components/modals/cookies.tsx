@@ -63,7 +63,7 @@ export function CookieConsent({
       <h3 className="mb-2 text-lg font-semibold">We value your privacy</h3>
       <p className="mb-4 text-sm text-gray-600 dark:text-gray-300">
         We use cookies to enhance your browsing experience, serve personalized ads or content, and
-        analyze our traffic. By clicking "Accept All", you consent to our use of cookies.
+        analyze our traffic. By clicking &quot;Accept All&quot;, you consent to our use of cookies.
       </p>
       <div className="flex flex-col gap-2">
         <Button

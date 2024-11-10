@@ -14,7 +14,7 @@ export function Navbar3() {
     useMotionValueEvent(scrollYProgress, "change", (current) => {
       // Check if current is not undefined and is a number
       if (typeof current === "number") {
-        let direction = current! - scrollYProgress.getPrevious()!;
+        const direction = current! - scrollYProgress.getPrevious()!;
   
         if (scrollYProgress.get() < 0.05) {
           setVisible(true);
