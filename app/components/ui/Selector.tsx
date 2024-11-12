@@ -9,6 +9,7 @@ import { IconBuildingSkyscraper, IconPlane, IconUmbrella, IconCalendar } from '@
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { bg } from "date-fns/locale";
+import { Hotel } from '@/types/hotel';
 
 const hotelDestinations = ['Дубай', 'Анталия', 'Измир', 'Мароко', 'Хургада', 'Шарм ел Шейх'];
 const holidayDestinations = ['Малдиви', 'Бали', 'Канкун', 'Саторни', 'Пхукет', 'Хавайи'];
@@ -16,8 +17,8 @@ const airports = ['София', 'Варна', 'Пловдив', 'Бургас',]
 const nightsOptions = Array.from({length: 11}, (_, i) => i + 4);
 
 interface SelectorProps {
-  onSearch: (data: any) => void;
-}
+    onSearch: (data: Hotel[]) => void;
+  }
 
 export default function Selector({ onSearch }: SelectorProps) {
   const [formData, setFormData] = useState({
@@ -31,6 +32,31 @@ export default function Selector({ onSearch }: SelectorProps) {
 
   const handleInputChange = (field: string, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  
+  const handleSearch = async () => {
+    try {
+      console.log('Sending search request with data:', formData); // Debug log
+  
+      const response = await fetch('/api/hotel-search', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to fetch hotels');
+      }
+  
+      const data = await response.json();
+      console.log('Received hotel data:', data); // Debug log
+      onSearch(data);
+    } catch (error) {
+      console.error('Error searching hotels:', error);
+    }
   };
 
   return (
@@ -283,7 +309,7 @@ export default function Selector({ onSearch }: SelectorProps) {
 
         <Button 
         className="mt-2 mx-4 " 
-        onClick={() => onSearch(formData)}
+        onClick={handleSearch}
       >
         Търси
       </Button>

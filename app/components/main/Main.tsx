@@ -4,6 +4,8 @@ import React from "react";
 import { ImagesSlider } from "./images-slider";
 import { Button } from "@/components/ui/button";
 import Selector from "../ui/Selector";
+import HotelList from "../hotel/HotelList";
+import { Hotel } from '@/types/hotel';
 
 export function Main() {
 
@@ -94,14 +96,13 @@ export function Main() {
           </AnimatePresence>
 
           <div className="absolute bottom-0  w-full">
-            <div className="-translate-y-24">
-      <Selector onSearch={() => {}} />
-      </div>
+
       </div>
         </motion.div>
 
 )}
     </ImagesSlider>
+
 
     </>
   );
