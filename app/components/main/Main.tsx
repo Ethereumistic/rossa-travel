@@ -2,30 +2,54 @@
 import { AnimatePresence, motion } from "framer-motion";
 import React from "react";
 import { ImagesSlider } from "./images-slider";
+import { Button } from "@/components/ui/button";
+import Selector from "../ui/Selector";
 
 export function Main() {
 
   const images = [
-    "https://images.unsplash.com/photo-1485433592409-9018e83a1f0d?q=80&w=1814&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1483982258113-b72862e6cff6?q=80&w=3456&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1482189349482-3defd547e0e9?q=80&w=2848&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "https://cdn.jsdelivr.net/gh/Ethereumistic/rossa-travel-assets/destinations/dubai.jpg",
+    "https://cdn.jsdelivr.net/gh/Ethereumistic/rossa-travel-assets/destinations/abu-dhabi.jpg",
+    "https://cdn.jsdelivr.net/gh/Ethereumistic/rossa-travel-assets/destinations/antalya.webp",
+    "https://cdn.jsdelivr.net/gh/Ethereumistic/rossa-travel-assets/destinations/izmir.webp",
+    "https://cdn.jsdelivr.net/gh/Ethereumistic/rossa-travel-assets/destinations/morroco.jpg",
+    "https://cdn.jsdelivr.net/gh/Ethereumistic/rossa-travel-assets/destinations/hurghada.webp",
+    "https://cdn.jsdelivr.net/gh/Ethereumistic/rossa-travel-assets/destinations/sharm-el-sheih.jpg",
+
   ];
 
   const slides = [
     {
-      text: "The hero section slideshow nobody asked for",
+      text: "Дубай",
       buttonText: "Join now →"
     },
     {
-      text: "Second slide with different text",
+      text: "Абу Даби",
       buttonText: "Learn more →"
     },
     {
-      text: "Third slide with unique content",
+      text: "Анталия",
+      buttonText: "Get started →"
+    },
+    {
+      text: "Измир",
+      buttonText: "Join now →"
+    },
+    {
+      text: "Мароко",
+      buttonText: "Learn more →"
+    },
+    {
+      text: "Хургада",
+      buttonText: "Get started →"
+    },
+    {
+      text: "Шарм ел Шейх",
       buttonText: "Get started →"
     },
   ];
   return (
+    <>
     <ImagesSlider className="h-screen" images={images}>
       {({ currentIndex }: { currentIndex: number }) => (
         <motion.div
@@ -68,8 +92,17 @@ export function Main() {
               <div className="absolute inset-x-0 h-px -bottom-px bg-gradient-to-r w-3/4 mx-auto from-transparent via-emerald-500 to-transparent" />
             </motion.button>
           </AnimatePresence>
+
+          <div className="absolute bottom-0  w-full">
+            <div className="-translate-y-24">
+      <Selector onSearch={() => {}} />
+      </div>
+      </div>
         </motion.div>
-      )}
+
+)}
     </ImagesSlider>
+
+    </>
   );
 }

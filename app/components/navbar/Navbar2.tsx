@@ -27,7 +27,8 @@ function Navbar({ className }: { className?: string }) {
     }, []);
     return (
       <div
-      className={cn(`fixed top-10 inset-x-0 w-full mx-auto z-50 transition-colors duration-300 ${isScrolled ? 'bg-white' : ''}`, className)}>        <Menu setActive={setActive}>
+      className={cn(`fixed top-10 inset-x-0 w-full mx-auto z-50 transition-colors duration-300 ${isScrolled ? 'bg-white' : ''}`, className)}>        
+      <Menu setActive={setActive}>
          <Logo className={`transition-all duration-300 ${isScrolled ? '' : 'invert'}`} 
                title="Logo" href="/" src="https://cdn.jsdelivr.net/gh/Ethereumistic/chistota-smurt-assets/partners/echoray-dark.png" />
           <div className="flex items-center space-x-16">
