@@ -13,7 +13,7 @@ export const ImagesSlider = ({
   direction = "up",
 }: {
   images: string[];
-  children: React.ReactNode;
+  children: (props: { currentIndex: number }) => React.ReactNode;
   overlay?: React.ReactNode;
   overlayClassName?: string;
   className?: string;
@@ -126,7 +126,7 @@ export const ImagesSlider = ({
         perspective: "1000px",
       }}
     >
-      {areImagesLoaded && children}
+      {areImagesLoaded && children({ currentIndex })}
       {areImagesLoaded && overlay && (
         <div
           className={cn("absolute inset-0 bg-black/60 z-40", overlayClassName)}
